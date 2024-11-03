@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spring-kube-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: javedtech.com  # Replace with your domain
+      http:
+        paths:
+          - path: "/student(/|$)(.*)"
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: spring-ingress-service
+                port:
+                  number: 7112  # Replace with the service port

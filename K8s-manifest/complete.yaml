@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-ingress
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spring-ingress
+  template:
+    metadata:
+      labels:
+        app: spring-ingress
+    spec:
+      containers:
+      - name: spring-ingress
+        image: sudodocker112/springingress:v1.0
+        ports:
+        - containerPort: 7112
+        
+
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-ingress-service
+  labels:
+    app: spring-ingress
+spec:
+  type: ClusterIP
+  selector:
+    app: spring-ingress
+  ports:
+    - port: 7112
+      targetPort: 7112       
